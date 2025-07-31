@@ -2,9 +2,10 @@
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.176.0/examples/jsm/controls/OrbitControls.js';
+import { Level } from './levels/Level.js'
 
 export class Game {
-  constructor(canvas, socket) {
+  constructor(canvas) {
     this.canvas = canvas;
     this.scene = new THREE.Scene();
 
@@ -12,6 +13,10 @@ export class Game {
     this.initCamera();
     this.initLighting();
     this.initControls();
+
+    this.initPlane();
+    this.createLevel();
+
 
     window.addEventListener('resize', this.handleWindowResize);
     this.handleWindowResize();
@@ -49,6 +54,57 @@ export class Game {
     this.controls.update();
   }
 
+
+  
+  createStartingArea() {
+    const geometry = new THREE.PlaneGeometry(100, 100);
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x808080,
+      side: THREE.DoubleSide
+    });
+    const plane = new THREE.Mesh(geometry, material);
+    plane.rotation.x = -Math.PI / 2; // rotate to make it horizontal
+    plane.receiveShadow = true;
+    this.scene.add(plane);
+  }
+
+  createLevel() { 
+    const minRooms = 2;
+    const maxRooms = 30;
+    const levelWidth = 128;
+    const levelHeight = 50;
+    const level = new Level();
+    level.placeRooms();
+  }
+    
+
+
+
+
+
+
+
+
+
+
+  // game update loop
+  update(time) {
+
+  }
+  // need to preserve "this" it is safer for callbacks and animation loops
+  animate = (time) => {
+    this.update(time);
+    this.renderer.render(this.scene, this.camera);
+  }
+
+  start() {
+    this.renderer.setAnimationLoop(this.animate);
+  }
+
+  stop() {
+    this.renderer.setAnimationLoop(null);
+  }
+
   handleWindowResize = () => {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
@@ -67,23 +123,5 @@ export class Game {
     this.renderer.setSize(width, height, false);
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
-  }
-  // game update loop
-  update(time) {
-
-  }
-
-  // need to preserve "this" it is safer for callbacks and animation loops
-  animate = (time) => {
-    this.update(time);
-    this.renderer.render(this.scene, this.camera);
-  }
-
-  start() {
-    this.renderer.setAnimationLoop(this.animate);
-  }
-
-  stop() {
-    this.renderer.setAnimationLoop(null);
   }
 }
