@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -10,14 +9,13 @@
     background-color: #0a192f;
     color: #e6f1ff;
     overflow: hidden;
-    background-image: linear-gradient(to bottom, #130a2f, #1f3d68);
+    background-image: linear-gradient(to bottom, #140a2f, #1f4b68);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
-  
+
   #homeScreen {
     width: 100%;
     height: 100vh;
@@ -61,10 +59,7 @@
   canvas {
     display: block;
   }
-  
-  
-  /* Canvas Styling */
-  /* set to 100 100 if ever an issue with margin on top or bottom */
+
   #gameCanvas {
     display: none;
     border-radius: 10px;
@@ -81,16 +76,7 @@
     text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
     position: relative;
   }
-  
-  h1::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #64ffda, transparent);
-    margin: 10px auto 0;
-  }
-  
+
   h2 {
     color: #7ed0ff;
     margin-bottom: 20px;
@@ -152,10 +138,6 @@
     font-size: 1.2rem;
     margin: 10px 15px;
   }
-
-
-
-
 
   #singlePlayerStartButton {
     width: 180px;
